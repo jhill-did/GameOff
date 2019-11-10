@@ -28,6 +28,38 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ChargeLaunch",
+                    "type": "Button",
+                    "id": "eabd9b4d-506f-4a89-9637-321129a4c5db",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "ReleaseLaunch",
+                    "type": "Button",
+                    "id": "9d02ec7f-3d9f-4d10-bf35-3d9d71092555",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)"
+                },
+                {
+                    "name": "StartJumping",
+                    "type": "Button",
+                    "id": "ab8cd01b-39eb-4ed2-9c18-3ee574e0b578",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)"
+                },
+                {
+                    "name": "StopJumping",
+                    "type": "Button",
+                    "id": "6a373ebe-cb89-44d7-8ba7-0ed7daa648c3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)"
                 }
             ],
             "bindings": [
@@ -215,6 +247,94 @@
                     "processors": "",
                     "groups": "Joystick",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6cff981e-8e7b-4e67-90cb-945775d1c50a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ChargeLaunch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "92bfc85c-ba90-471f-9ca3-c573470e63e9",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ChargeLaunch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8957ef23-e8ab-47e1-93e7-2734890b5cfd",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReleaseLaunch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8a6e48ee-7f1b-4437-b68c-9eb3c629f84b",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReleaseLaunch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80a53236-ac21-4469-8358-4fd62e641da8",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "StartJumping",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c566bf83-fda6-42ea-bfb2-ae3a415d9606",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "StartJumping",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dabbafa2-8fee-42e5-9c93-5c8656cf1923",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "StopJumping",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9c880061-5cc2-48a1-b613-d36d8a7d7336",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "StopJumping",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

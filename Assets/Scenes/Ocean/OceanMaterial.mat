@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - FoamAmount: 0.74
+    - FoamAmount: 0.71
     m_Colors:
     - MainColor: {r: 0.090196066, g: 0.30588236, b: 0.34117648, a: 0}
     - SecondaryColor: {r: 0.44313726, g: 0.6156863, b: 0.6313726, a: 0}

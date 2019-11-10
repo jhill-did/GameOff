@@ -11,12 +11,24 @@ public class Character : MonoBehaviour {
     private float cameraYaw = 0.0f;
     public float rotationSpeed = 5.0f;
 
+    bool chargingLaunch = false;
+    public float launchHoldTimer = 0.0f;
+    public float launchHoldRate = 1.0f;
+    public float maxLaunchForce;
+
+    public bool jumping = false;
+    public float jumpTimer = 0.0f;
+    public float maxJumpTime = 1.0f;
+    public float jumpAcceleration;
     public bool grounded;
 
-    public float drag = 1.0f;
+    public float groundDrag = 1.0f;
     private Vector3 lastPositiveMovementDirection = Vector3.zero;
     private Vector2 movementInput = Vector2.zero;
-    public float moveSpeed;
+    public float groundAcceleration;
+    public float airAcceleration;
+    public float inputAirVelocity;
+    public float maxGroundVelocity;
 
     public float cameraMovementSensitivity = 0.2f;
     private Vector2 cameraMovementDirection = Vector3.zero;
@@ -46,6 +58,10 @@ public class Character : MonoBehaviour {
 
         cameraArm.transform.localRotation = Quaternion
             .Euler(Vector3.right * clampedPitch);
+
+        launchHoldTimer = chargingLaunch
+            ? Mathf.Clamp01(launchHoldTimer + launchHoldRate * Time.deltaTime)
+            : 0.0f;
     }
 
     void FixedUpdate() {
@@ -86,22 +102,48 @@ public class Character : MonoBehaviour {
             );
         }
 
-        // Handle movement.
-        var gravityForce = Vector3.down * 9.81f;
+        // Handle jump state.
+        jumpTimer = jumping ? jumpTimer + Time.deltaTime : 0.0f;
+        jumping = jumpTimer >= maxJumpTime ? false : jumping;
 
-        var floorMagnetForce = this.grounded
-            ? hitInfo.normal * -50.0f
-            : Vector3.zero;
-
-        var totalForce = gravityForce
-            + movementDirection * moveSpeed
-            + floorMagnetForce;
-        rigidBody.AddForce(totalForce, ForceMode.Acceleration);
 
         // Apply drag.
+        /*
         var dragScalar = 1.0f - Time.deltaTime * this.drag;
         var dragForce = new Vector3(dragScalar, 1.0f, dragScalar);
-        this.rigidBody.velocity = Vector3.Scale(this.rigidBody.velocity, dragForce);
+        this.rigidBody.velocity = grounded
+            ? Vector3.Scale(this.rigidBody.velocity, dragForce)
+            : this.rigidBody.velocity;
+        */
+
+        // Handle movement.
+        var gravityForce = Vector3.down * 9.81f;
+        var totalForce = gravityForce;
+
+        if (grounded) {
+            // Handle Jumping.
+            var jumpForce = jumping
+                ? Vector3.up * jumpAcceleration
+                : Vector3.zero;
+
+            // Handle floor magnetism.
+            var floorMagnetForce = this.grounded
+                ? hitInfo.normal * -50.0f
+                : Vector3.zero;
+
+            totalForce += movementDirection * groundAcceleration
+                + jumpForce;
+            rigidBody.AddForce(totalForce, ForceMode.Acceleration);
+
+            // Clamp velocity.
+            this.rigidBody.velocity = Vector3
+                .ClampMagnitude(this.rigidBody.velocity, maxGroundVelocity);
+        }
+
+        if (!grounded) {
+            totalForce += movementDirection * airAcceleration;
+            rigidBody.AddForce(totalForce, ForceMode.Acceleration);
+        }
     }
 
     public void OnMove(InputValue value) {
@@ -114,6 +156,29 @@ public class Character : MonoBehaviour {
     }
 
     public void OnAttack() {
-        Debug.Log("Hello Attack");
+        // Debug.Log("Hello Attack");
+    }
+
+    public void OnChargeLaunch() {
+        chargingLaunch = true;
+    }
+
+    public void OnReleaseLaunch() {
+        chargingLaunch = false;
+        Launch();
+    }
+
+    public void Launch() {
+        var aimingDirection = this.camera.transform.forward;
+        var launchForce = aimingDirection * launchHoldTimer * maxLaunchForce;
+        this.rigidBody.AddForce(launchForce, ForceMode.Impulse);
+    }
+
+    public void OnStartJumping() {
+        this.jumping = grounded;
+    }
+
+    public void OnStopJumping() {
+        this.jumping = false;
     }
 }
