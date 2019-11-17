@@ -33,6 +33,8 @@ public class Character : MonoBehaviour {
     public float cameraMovementSensitivity = 0.2f;
     private Vector2 cameraMovementDirection = Vector3.zero;
 
+    public Vector3 spawnPosition;
+
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -144,6 +146,11 @@ public class Character : MonoBehaviour {
             totalForce += movementDirection * airAcceleration;
             rigidBody.AddForce(totalForce, ForceMode.Acceleration);
         }
+
+        if(transform.position.y < -15)
+        {
+            this.resetPlayer();
+        }
     }
 
     public void OnMove(InputValue value) {
@@ -180,5 +187,11 @@ public class Character : MonoBehaviour {
 
     public void OnStopJumping() {
         this.jumping = false;
+    }
+
+    public void resetPlayer()
+    {
+        this.rigidBody.velocity = Vector3.zero;
+        transform.position = this.spawnPosition;
     }
 }
