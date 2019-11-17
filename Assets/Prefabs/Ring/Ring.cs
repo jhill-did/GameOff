@@ -21,7 +21,6 @@ public class Ring : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("Entered");
         var player = collision.gameObject.GetComponent<Character>();
         if (player != null)
         {

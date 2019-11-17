@@ -18,11 +18,9 @@ public class IslandBox : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("Entered");
         var player = collision.gameObject.GetComponent<Character>();
         if (player != null)
         {
-            Debug.Log("player entered island box");
             Vector3 spawnPosition = GetComponent<BoxCollider>().transform.position;
             player.spawnPosition = spawnPosition;
         }

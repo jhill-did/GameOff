@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6890370925942096388}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 2045450331335084939}
   - component: {fileID: 2687009639574396130}
   - component: {fileID: 6541347655627640793}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: IslandEnterBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
