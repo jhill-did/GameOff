@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterAnimation : MonoBehaviour {
+    public CharacterFootsteps footsteps;
     public Character character;
     public Animator animator;
     public float maxSpeed = 1.0f;
@@ -20,5 +21,13 @@ public class CharacterAnimation : MonoBehaviour {
         var camera = character.camera.GetComponent<Camera>();
         var chargeAmount = character.launchHoldTimer;
         camera.fieldOfView = Mathf.Lerp(75.0f, 90.0f, chargeAmount);
+    }
+
+    public void StepLeft() {
+        this.footsteps.StepLeft();
+    }
+
+    public void StepRight() {
+        this.footsteps.StepRight();
     }
 }

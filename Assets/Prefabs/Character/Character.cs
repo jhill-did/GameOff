@@ -22,12 +22,12 @@ public class Character : MonoBehaviour {
     public float jumpAcceleration;
     public bool grounded;
 
-    public float groundDrag = 1.0f;
     private Vector3 lastPositiveMovementDirection = Vector3.zero;
     private Vector2 movementInput = Vector2.zero;
     public float groundAcceleration;
     public float airAcceleration;
     public float inputAirVelocity;
+    public float groundFriction;
     public float maxGroundVelocity;
 
     public float cameraMovementSensitivity = 0.2f;
@@ -106,16 +106,6 @@ public class Character : MonoBehaviour {
         jumpTimer = jumping ? jumpTimer + Time.deltaTime : 0.0f;
         jumping = jumpTimer >= maxJumpTime ? false : jumping;
 
-
-        // Apply drag.
-        /*
-        var dragScalar = 1.0f - Time.deltaTime * this.drag;
-        var dragForce = new Vector3(dragScalar, 1.0f, dragScalar);
-        this.rigidBody.velocity = grounded
-            ? Vector3.Scale(this.rigidBody.velocity, dragForce)
-            : this.rigidBody.velocity;
-        */
-
         // Handle movement.
         var gravityForce = Vector3.down * 9.81f;
         var totalForce = gravityForce;
@@ -131,8 +121,15 @@ public class Character : MonoBehaviour {
                 ? hitInfo.normal * -50.0f
                 : Vector3.zero;
 
+            // Apply ground friction.
+            var velocityDirection = this.rigidBody.velocity.normalized;
+            var angleDot = Vector3.Dot(hitInfo.normal, Vector3.up);
+            var normalForce = 1.0f * 9.81f * angleDot;
+            var frictionForce = -velocityDirection * this.groundFriction * normalForce;
+
             totalForce += movementDirection * groundAcceleration
-                + jumpForce;
+                + jumpForce
+                + frictionForce;
             rigidBody.AddForce(totalForce, ForceMode.Acceleration);
 
             // Clamp velocity.
@@ -172,6 +169,10 @@ public class Character : MonoBehaviour {
         var aimingDirection = this.camera.transform.forward;
         var launchForce = aimingDirection * launchHoldTimer * maxLaunchForce;
         this.rigidBody.AddForce(launchForce, ForceMode.Impulse);
+
+        // Pop the character off the ground slightly so we aren't
+        // grounded on the next frame.
+        this.transform.Translate(Vector3.up * 0.26f);
     }
 
     public void OnStartJumping() {
