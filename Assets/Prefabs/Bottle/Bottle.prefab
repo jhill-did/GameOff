@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 100
+  pickUpSound: {fileID: 8300000, guid: 1bcf4105d05fe5145a63939c1ad5f4e2, type: 3}
 --- !u!1001 &2668716947764648207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66,11 +67,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6895700345337719472}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 33011fa97d3063f41be463d9e44cc41e,
-        type: 3}
-      propertyPath: m_Name
-      value: Bottle
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 33011fa97d3063f41be463d9e44cc41e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -126,11 +122,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -2271911505176160813, guid: 33011fa97d3063f41be463d9e44cc41e,
+    - target: {fileID: -927199367670048503, guid: 33011fa97d3063f41be463d9e44cc41e,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0d63f30e62ac9144baf7c97613f866d8, type: 2}
+      propertyPath: m_Name
+      value: Bottle
+      objectReference: {fileID: 0}
     - target: {fileID: 2719009716803909599, guid: 33011fa97d3063f41be463d9e44cc41e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -141,6 +137,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 18a6d72ecae7e004a99cea8331225279, type: 2}
+    - target: {fileID: -2271911505176160813, guid: 33011fa97d3063f41be463d9e44cc41e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0d63f30e62ac9144baf7c97613f866d8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33011fa97d3063f41be463d9e44cc41e, type: 3}
 --- !u!4 &6950069221032866325 stripped
