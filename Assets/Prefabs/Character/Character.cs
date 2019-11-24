@@ -30,6 +30,8 @@ public class Character : MonoBehaviour {
     public float groundFriction;
     public float maxGroundVelocity;
 
+    public float glidePitch = 1.0f; // 0 = Down, 1 = Forward.
+
     public float cameraMovementSensitivity = 0.2f;
     private Vector2 cameraMovementDirection = Vector3.zero;
 

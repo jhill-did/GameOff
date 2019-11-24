@@ -171,20 +171,26 @@ AnimatorController:
   m_Name: CharacterAnimator
   serializedVersion: 5
   m_AnimatorParameters:
+  - m_Name: Grounded
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   - m_Name: MovementSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: VerticalSpeed
+  - m_Name: GlidePitch
     m_Type: 1
-    m_DefaultFloat: 0
+    m_DefaultFloat: 1
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: Grounded
-    m_Type: 4
+  - m_Name: VerticalSpeed
+    m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -202,6 +208,48 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+--- !u!206 &2680892821076614261
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BlendTree
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: 1702361308343603145, guid: 7ae56de01ff0c5f41aafcabf7015ebae,
+      type: 3}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: MovementSpeed
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 8477446588073555473, guid: 7ae56de01ff0c5f41aafcabf7015ebae,
+      type: 3}
+    m_Threshold: 0.5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: MovementSpeed
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -2096086827515688051, guid: 7ae56de01ff0c5f41aafcabf7015ebae,
+      type: 3}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: MovementSpeed
+    m_Mirror: 0
+  m_BlendParameter: GlidePitch
+  m_BlendParameterY: Blend
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!206 &7347733356053356518
 BlendTree:
   m_ObjectHideFlags: 1
@@ -211,8 +259,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 6881873686158965456, guid: 7ae56de01ff0c5f41aafcabf7015ebae,
-      type: 3}
+    m_Motion: {fileID: 2680892821076614261}
     m_Threshold: -1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
