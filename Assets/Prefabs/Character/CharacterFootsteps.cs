@@ -27,10 +27,7 @@ public class CharacterFootsteps : MonoBehaviour {
         this.clipLookup.Add(StepType.Water, waterSteps);
     }
 
-    public void Update()
-    {
-        Debug.Log(rigidBody.velocity.magnitude);
-    }
+    public void Update() {}
 
     public void StepLeft() {
         Step(this.leftFoot.position);
