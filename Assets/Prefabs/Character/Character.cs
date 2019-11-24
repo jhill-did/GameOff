@@ -66,6 +66,23 @@ public class Character : MonoBehaviour {
         launchHoldTimer = chargingLaunch
             ? Mathf.Clamp01(launchHoldTimer + launchHoldRate * Time.deltaTime)
             : 0.0f;
+
+        if(chargingLaunch)
+        {
+            var hits = Physics.SphereCastAll(transform.position, 20, transform.forward, 10.0f);
+            foreach(RaycastHit hit in hits)
+            {
+                Debug.Log(hit.transform.name);
+                var hitRigidBody = hit.transform.gameObject.GetComponent<Rigidbody>();
+                if(hitRigidBody != null)
+                {
+                    hitRigidBody.AddForce(Vector3.up * 1000 * Time.deltaTime, ForceMode.Acceleration);
+                }
+
+            }
+            
+            
+        }
     }
 
     void FixedUpdate() {
