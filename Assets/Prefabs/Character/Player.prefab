@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 24894782559520779}
   - component: {fileID: 2789561411124290898}
   - component: {fileID: 1556076949288868974}
+  - component: {fileID: 8353302998553495905}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -93,13 +94,13 @@ MonoBehaviour:
   maxJumpTime: 1
   jumpAcceleration: 70
   grounded: 0
-  groundDrag: 1000
   groundAcceleration: 20
   airAcceleration: 10
   inputAirVelocity: 0
-  groundFriction: 0
+  groundFriction: 1
   maxGroundVelocity: 5
   cameraMovementSensitivity: 1
+  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!136 &3827328977023666523
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -147,7 +148,34 @@ MonoBehaviour:
   volumeDecay: 10
   volumeCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.018438881
+      outSlope: 0.018438881
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 15.041451
+      value: 0.27734753
+      inSlope: 0.07146726
+      outSlope: 0.07146726
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.24715446
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 58
+      value: 1
+      inSlope: 0.008999831
+      outSlope: 0.008999831
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.095530316
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -267,20 +295,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: -0.0053609475
+      outSlope: -0.0053609475
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.4292921
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
+      time: 3.7969902
+      value: 0.59503555
+      inSlope: 0.2051068
+      outSlope: 0.2051068
       tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 5
+      value: 0.9
+      inSlope: 0.25350118
+      outSlope: 0.25350118
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -389,6 +426,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8353302998553495905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3827328977023666524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a05bd1fc3137b84ab60e585155b2703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottlesCollected: 0
 --- !u!114 &5664765336795402306
 MonoBehaviour:
   m_ObjectHideFlags: 0
