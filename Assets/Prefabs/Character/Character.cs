@@ -163,8 +163,7 @@ public class Character : MonoBehaviour {
             rigidBody.AddForce(totalForce, ForceMode.Acceleration);
         }
 
-        if(transform.position.y < -15)
-        {
+        if(transform.position.y < -15.0f) {
             this.resetPlayer();
         }
     }
