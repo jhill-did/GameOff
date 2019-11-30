@@ -99,6 +99,7 @@ MonoBehaviour:
   inputAirVelocity: 0
   groundFriction: 1
   maxGroundVelocity: 5
+  glideAngle: 0
   glidePitch: 1
   cameraMovementSensitivity: 1
   spawnPosition: {x: 0, y: 0, z: 0}
@@ -329,7 +330,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 33cb10fe3dbe9a84fbab569fd3909125, type: 3}
   - {fileID: 8300000, guid: a997bd42c62788a4882a3b55779747b5, type: 3}
   stoneSteps: []
-  waterSteps: []
+  waterSteps:
+  - {fileID: 8300000, guid: 11baec5f1a916e049aac6f20ac8a9a82, type: 3}
+  - {fileID: 8300000, guid: 101fc84883b39a044893ca406102114b, type: 3}
+  - {fileID: 8300000, guid: 57eb69489bafcaf42828f3cb6b311bc4, type: 3}
+  - {fileID: 8300000, guid: 27d5b80e0619f924ca8f70e438a7e459, type: 3}
+  - {fileID: 8300000, guid: bf139a16135a37947bf0df2e92d6d445, type: 3}
   leftFoot: {fileID: 5002368876805370597}
   rightFoot: {fileID: 3595009714507206691}
 --- !u!82 &1556076949288868974

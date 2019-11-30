@@ -15,6 +15,11 @@ public class CharacterFootsteps : MonoBehaviour {
     public AudioClip[] sandSteps;
     public AudioClip[] stoneSteps;
     public AudioClip[] waterSteps;
+
+    public float waterStepVolume;
+    public float sandStepVolume;
+    public float stoneStepVolume;
+
     private Dictionary<StepType, AudioClip[]> clipLookup;
 
     public Transform leftFoot;
@@ -37,16 +42,31 @@ public class CharacterFootsteps : MonoBehaviour {
         Step(this.rightFoot.position);
     }
 
+    float GetVolumeScalar(StepType type) {
+        switch (type) {
+            case StepType.Sand: return sandStepVolume;
+            case StepType.Stone: return stoneStepVolume;
+            case StepType.Water: return waterStepVolume;
+            default: return 1.0f;
+        };
+    }
+
     void Step(Vector3 footPosition) {
         var speed = rigidBody.velocity.magnitude;
-        var type = StepType.Sand;
+
+        Debug.Log(footPosition.y);
+        var type = footPosition.y < 0.1f
+            ? StepType.Water
+            : StepType.Sand;
+
+        var volumeScale = GetVolumeScalar(type);
 
         var sounds = this.clipLookup[type];
         var randomIndex = Random.Range(0, sounds.Length);
         var randomSound = sounds[randomIndex];
 
         this.audioSource.pitch = Random.Range(0.95f, 1.05f);
-        this.audioSource.volume = this.volumeCurve.Evaluate(speed);
+        this.audioSource.volume = this.volumeCurve.Evaluate(speed) * volumeScale;
         this.audioSource.PlayOneShot(randomSound);
     }
 }
