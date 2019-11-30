@@ -30,6 +30,8 @@ public class Character : MonoBehaviour {
     public float groundFriction;
     public float maxGroundVelocity;
 
+    public float glidePitch = 1.0f; // 0 = Down, 1 = Forward.
+
     public float cameraMovementSensitivity = 0.2f;
     private Vector2 cameraMovementDirection = Vector3.zero;
 
@@ -161,8 +163,7 @@ public class Character : MonoBehaviour {
             rigidBody.AddForce(totalForce, ForceMode.Acceleration);
         }
 
-        if(transform.position.y < -15)
-        {
+        if(transform.position.y < -15.0f) {
             this.resetPlayer();
         }
     }
