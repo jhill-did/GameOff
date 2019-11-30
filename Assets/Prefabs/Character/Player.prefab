@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 2789561411124290898}
   - component: {fileID: 1556076949288868974}
   - component: {fileID: 8353302998553495905}
+  - component: {fileID: 5008170855988356400}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -336,6 +337,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 57eb69489bafcaf42828f3cb6b311bc4, type: 3}
   - {fileID: 8300000, guid: 27d5b80e0619f924ca8f70e438a7e459, type: 3}
   - {fileID: 8300000, guid: bf139a16135a37947bf0df2e92d6d445, type: 3}
+  waterStepVolume: 0
+  sandStepVolume: 0
+  stoneStepVolume: 0
   leftFoot: {fileID: 5002368876805370597}
   rightFoot: {fileID: 3595009714507206691}
 --- !u!82 &1556076949288868974
@@ -447,6 +451,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottlesCollected: 0
+--- !u!114 &5008170855988356400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3827328977023666524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5c8b7fb93fdb474d8bde720cd84d07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splashSound: {fileID: 8300000, guid: faa54f85febb95c46b80a970060e2c0d, type: 3}
+  rigidbody: {fileID: 3827328977023666521}
+  velocityThreshold: 10
+  heightThreshold: -0.5
 --- !u!95 &9036222155979503521
 Animator:
   serializedVersion: 3
