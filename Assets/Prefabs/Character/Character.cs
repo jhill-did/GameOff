@@ -67,14 +67,16 @@ public class Character : MonoBehaviour {
             ? Mathf.Clamp01(launchHoldTimer + launchHoldRate * Time.deltaTime)
             : 0.0f;
 
-        if(chargingLaunch)
+        // Code for levitating surrounding objects
+        if (chargingLaunch)
         {
             var hits = Physics.SphereCastAll(transform.position, 20, transform.forward, 10.0f);
             foreach(RaycastHit hit in hits)
             {
                 Debug.Log(hit.transform.name);
                 var hitRigidBody = hit.transform.gameObject.GetComponent<Rigidbody>();
-                if(hitRigidBody != null)
+                var isPlayer = hit.transform.gameObject.GetComponent<Character>() == null ? false : true;
+                if(hitRigidBody != null && !isPlayer)
                 {
                     hitRigidBody.AddForce(Vector3.up * 1000 * Time.deltaTime, ForceMode.Acceleration);
                 }
@@ -198,6 +200,22 @@ public class Character : MonoBehaviour {
         // Pop the character off the ground slightly so we aren't
         // grounded on the next frame.
         this.transform.Translate(Vector3.up * 0.26f);
+
+
+        // launch all other objects around the character
+        var hits = Physics.SphereCastAll(transform.position, 20, transform.forward, 10.0f);
+        foreach (RaycastHit hit in hits)
+        {
+            Debug.Log(hit.transform.name);
+            var hitRigidBody = hit.transform.gameObject.GetComponent<Rigidbody>();
+            var isPlayer = hit.transform.gameObject.GetComponent<Character>() == null ? false : true;
+            if (hitRigidBody != null && !isPlayer)
+            {
+                //100 idk dawg it looks like it's a good number. 
+                hitRigidBody.AddForce(launchForce * 100, ForceMode.Impulse);
+            }
+
+        }
     }
 
     public void OnStartJumping() {
