@@ -16,7 +16,6 @@ public class FadeToBlack : MonoBehaviour {
             player.transform.position.y
         );
 
-        Debug.Log(fadeAmount);
         image.color = Color.Lerp(Color.clear, Color.black, fadeAmount);
     }
 }

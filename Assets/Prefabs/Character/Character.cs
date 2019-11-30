@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum MovementMode { Ground, Air, Glide };
+
 public class Character : MonoBehaviour {
     public Rigidbody rigidBody;
     public new GameObject camera;
@@ -10,6 +12,8 @@ public class Character : MonoBehaviour {
     public GameObject cameraBase;
     private float cameraYaw = 0.0f;
     public float rotationSpeed = 5.0f;
+
+    MovementMode movementMode;
 
     bool chargingLaunch = false;
     public float launchHoldTimer = 0.0f;
@@ -21,6 +25,7 @@ public class Character : MonoBehaviour {
     public float maxJumpTime = 1.0f;
     public float jumpAcceleration;
     public bool grounded;
+    public RaycastHit floorHitInfo;
 
     private Vector3 lastPositiveMovementDirection = Vector3.zero;
     private Vector2 movementInput = Vector2.zero;
@@ -30,6 +35,7 @@ public class Character : MonoBehaviour {
     public float groundFriction;
     public float maxGroundVelocity;
 
+    public float glideAngle = 0.0f;
     public float glidePitch = 1.0f; // 0 = Down, 1 = Forward.
 
     public float cameraMovementSensitivity = 0.2f;
@@ -67,34 +73,109 @@ public class Character : MonoBehaviour {
             ? Mathf.Clamp01(launchHoldTimer + launchHoldRate * Time.deltaTime)
             : 0.0f;
 
-        if(chargingLaunch)
-        {
+        if(chargingLaunch) {
             var hits = Physics.SphereCastAll(transform.position, 20, transform.forward, 10.0f);
-            foreach(RaycastHit hit in hits)
-            {
+            foreach(RaycastHit hit in hits) {
                 Debug.Log(hit.transform.name);
                 var hitRigidBody = hit.transform.gameObject.GetComponent<Rigidbody>();
-                if(hitRigidBody != null)
-                {
+                if(hitRigidBody != null) {
                     hitRigidBody.AddForce(Vector3.up * 1000 * Time.deltaTime, ForceMode.Acceleration);
                 }
-
             }
-            
-            
         }
     }
 
-    void FixedUpdate() {
-        // Handle grounded state.
-        this.grounded = Physics.Raycast(
-            transform.position + Vector3.up,
-            Vector3.down,
-            out var hitInfo,
-            1.25f
-        );
+    void TurnTowards(Vector3 direction) {
+        var targetRotation = Quaternion.LookRotation(direction);
 
-        // Calculate our movement forces.
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            targetRotation,
+            Time.fixedDeltaTime * rotationSpeed
+        );
+    }
+
+    Vector3 GroundMove(Vector3 currentForce) {
+        var movementDirection = GetInputDirection();
+
+        // Turn to face our movementDirection.
+        if (this.lastPositiveMovementDirection.magnitude > 0.0f) {
+            TurnTowards(this.lastPositiveMovementDirection);
+        }
+
+        // Handle Jumping.
+        var jumpForce = jumping
+            ? Vector3.up * jumpAcceleration
+            : Vector3.zero;
+
+        // Handle floor magnetism.
+        var floorMagnetForce = this.grounded
+            ? floorHitInfo.normal * -50.0f
+            : Vector3.zero;
+
+        // Apply ground friction.
+        var velocityDirection = this.rigidBody.velocity.normalized;
+        var angleDot = Vector3.Dot(floorHitInfo.normal, Vector3.up);
+        var normalForce = 1.0f * 9.81f * angleDot;
+        var frictionForce = -velocityDirection * this.groundFriction * normalForce;
+
+        var totalForce = currentForce
+            + movementDirection * groundAcceleration
+            + jumpForce
+            + frictionForce;
+
+        // Clamp velocity.
+        this.rigidBody.velocity = Vector3
+            .ClampMagnitude(this.rigidBody.velocity, maxGroundVelocity);
+
+        return totalForce;
+    }
+
+    Vector3 AirMove(Vector3 currentForce) {
+        var movementDirection = GetInputDirection();
+        var totalForce = currentForce
+            + movementDirection * airAcceleration;
+
+        var horizontalVelocity = this.rigidBody
+            .velocity
+            .getHorizontalPart();
+
+        if (horizontalVelocity.magnitude > 0.0f) {
+            TurnTowards(horizontalVelocity);
+        }
+
+        return totalForce;
+    }
+
+    Vector3 GlideMove(Vector3 currentForce) {
+        // Rotate towards our movement direction.
+        var horizontalVelocity = this.rigidBody
+            .velocity
+            .getHorizontalPart();
+
+        if (horizontalVelocity.magnitude > 0.0f) {
+            TurnTowards(horizontalVelocity);
+        }
+
+        var inputDirection = GetInputDirection();
+        this.glideAngle = Mathf.Clamp(glideAngle + inputDirection.x, -1.0f, 1.0f);
+
+        var glideAngleReset = (glideAngle > 0.0f ? -1.0f : 1.0f)
+            * Time.fixedDeltaTime
+            * 4.0f;
+
+        this.glideAngle = glideAngle + glideAngleReset;
+
+        Debug.Log(glideAngle);
+
+
+        var totalForce = currentForce
+            + Vector3.up * 9.86f;
+
+        return totalForce;
+    }
+
+    Vector3 GetInputDirection() {
         var cameraForward = this.camera.transform.forward;
         var cameraRight = this.camera.transform.right;
         var characterForward = new Vector3(cameraForward.x, 0.0f, cameraForward.z).normalized;
@@ -105,22 +186,46 @@ public class Character : MonoBehaviour {
 
         var movementDirection = inputForward + inputRight;
 
+        return movementDirection;
+    }
+
+    void FixedUpdate() {
         // Update our last movement direction if this new movement isn't zero length.
+        var movementDirection = GetInputDirection();
         lastPositiveMovementDirection = movementDirection.magnitude < 0.01f
             ? lastPositiveMovementDirection
             : movementDirection;
 
-        // Turn to face our movementDirection.
-        if (this.lastPositiveMovementDirection.magnitude > 0.0f)
-        {
-            var targetRotation = Quaternion
-                .LookRotation(this.lastPositiveMovementDirection);
+        // Handle grounded state.
+        this.grounded = Physics.Raycast(
+            transform.position + Vector3.up,
+            Vector3.down,
+            out this.floorHitInfo,
+            1.25f
+        );
 
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRotation,
-                Time.fixedDeltaTime * rotationSpeed
-            );
+        // Special case transition to gliding when we're
+        // falling from high enough.
+        bool airToGlide = this.movementMode == MovementMode.Air
+            && this.rigidBody.velocity.y < 0.0f
+            && this.transform.position.y > 10.0f;
+
+        // If we're just now entering the glide state, reset
+        // glide variables.
+        if (airToGlide) {
+            this.glideAngle = 0.0f;
+            this.glidePitch = 1.0f;
+        }
+        
+        this.movementMode = airToGlide
+            ? MovementMode.Glide
+            : this.grounded
+                ? MovementMode.Ground
+                : MovementMode.Air;
+
+        // Out-of-bounds check.
+        if (transform.position.y < -10.0f) {
+            this.resetPlayer();
         }
 
         // Handle jump state.
@@ -131,41 +236,20 @@ public class Character : MonoBehaviour {
         var gravityForce = Vector3.down * 9.81f;
         var totalForce = gravityForce;
 
-        if (grounded) {
-            // Handle Jumping.
-            var jumpForce = jumping
-                ? Vector3.up * jumpAcceleration
-                : Vector3.zero;
-
-            // Handle floor magnetism.
-            var floorMagnetForce = this.grounded
-                ? hitInfo.normal * -50.0f
-                : Vector3.zero;
-
-            // Apply ground friction.
-            var velocityDirection = this.rigidBody.velocity.normalized;
-            var angleDot = Vector3.Dot(hitInfo.normal, Vector3.up);
-            var normalForce = 1.0f * 9.81f * angleDot;
-            var frictionForce = -velocityDirection * this.groundFriction * normalForce;
-
-            totalForce += movementDirection * groundAcceleration
-                + jumpForce
-                + frictionForce;
-            rigidBody.AddForce(totalForce, ForceMode.Acceleration);
-
-            // Clamp velocity.
-            this.rigidBody.velocity = Vector3
-                .ClampMagnitude(this.rigidBody.velocity, maxGroundVelocity);
+        switch (movementMode) {
+            case MovementMode.Ground:
+                totalForce = GroundMove(totalForce);
+                break;
+            case MovementMode.Air:
+                totalForce = AirMove(totalForce);
+                break;
+            case MovementMode.Glide:
+                totalForce = GlideMove(totalForce);
+                break;
+            default: break;
         }
 
-        if (!grounded) {
-            totalForce += movementDirection * airAcceleration;
-            rigidBody.AddForce(totalForce, ForceMode.Acceleration);
-        }
-
-        if(transform.position.y < -15.0f) {
-            this.resetPlayer();
-        }
+        rigidBody.AddForce(totalForce, ForceMode.Acceleration);
     }
 
     public void OnMove(InputValue value) {
@@ -175,10 +259,6 @@ public class Character : MonoBehaviour {
 
     public void OnLook(InputValue value) {
         cameraMovementDirection = value.Get<Vector2>();
-    }
-
-    public void OnAttack() {
-        // Debug.Log("Hello Attack");
     }
 
     public void OnChargeLaunch() {
@@ -208,8 +288,7 @@ public class Character : MonoBehaviour {
         this.jumping = false;
     }
 
-    public void resetPlayer()
-    {
+    public void resetPlayer() {
         this.rigidBody.velocity = Vector3.zero;
         transform.position = this.spawnPosition;
     }

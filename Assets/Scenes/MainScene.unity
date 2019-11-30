@@ -3627,7 +3627,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 646956090}
   image: {fileID: 1549607265}
-  fadeHeightStart: -2
+  fadeHeightStart: -1.5
   fadeHeightEnd: -4
 --- !u!1 &1619988271 stripped
 GameObject:
