@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterSplash : MonoBehaviour {
+    public GameObject splashEffects;
     public AudioClip splashSound;
     public new Rigidbody rigidbody;
     public float velocityThreshold;
@@ -20,6 +21,7 @@ public class CharacterSplash : MonoBehaviour {
         if (fastEnough && rightHeight && !underWater) {
             // Play a sound as we hit the water.
             AudioSource.PlayClipAtPoint(splashSound, transform.position);
+            Instantiate(splashEffects, transform.position, Quaternion.identity);
 
             underWater = true;
         }

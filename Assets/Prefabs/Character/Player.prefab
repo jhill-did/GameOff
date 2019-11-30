@@ -463,6 +463,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c8b7fb93fdb474d8bde720cd84d07f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  splashEffects: {fileID: 3152603054802928894, guid: 87539ed118758444f892b0949d4e4558,
+    type: 3}
   splashSound: {fileID: 8300000, guid: faa54f85febb95c46b80a970060e2c0d, type: 3}
   rigidbody: {fileID: 3827328977023666521}
   velocityThreshold: 10
