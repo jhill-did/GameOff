@@ -3970,6 +3970,61 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2789561411124290898, guid: 638b8ec0652e22a4aa1d579072981718,
+        type: 3}
+      propertyPath: volumeCurve.m_Curve.Array.data[1].inSlope
+      value: 0.066722624
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789561411124290898, guid: 638b8ec0652e22a4aa1d579072981718,
+        type: 3}
+      propertyPath: volumeCurve.m_Curve.Array.data[1].outSlope
+      value: 0.066722624
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789561411124290898, guid: 638b8ec0652e22a4aa1d579072981718,
+        type: 3}
+      propertyPath: volumeCurve.m_Curve.Array.data[2].value
+      value: 0.19918287
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789561411124290898, guid: 638b8ec0652e22a4aa1d579072981718,
+        type: 3}
+      propertyPath: volumeCurve.m_Curve.Array.data[2].inSlope
+      value: 0.10662937
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789561411124290898, guid: 638b8ec0652e22a4aa1d579072981718,
+        type: 3}
+      propertyPath: volumeCurve.m_Curve.Array.data[2].outSlope
+      value: 0.10662937
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789561411124290898, guid: 638b8ec0652e22a4aa1d579072981718,
+        type: 3}
+      propertyPath: volumeCurve.m_Curve.Array.data[2].time
+      value: 4.982422
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789561411124290898, guid: 638b8ec0652e22a4aa1d579072981718,
+        type: 3}
+      propertyPath: volumeCurve.m_Curve.Array.data[1].value
+      value: 0.11157608
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789561411124290898, guid: 638b8ec0652e22a4aa1d579072981718,
+        type: 3}
+      propertyPath: volumeCurve.m_Curve.Array.data[1].time
+      value: 4.160821
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789561411124290898, guid: 638b8ec0652e22a4aa1d579072981718,
+        type: 3}
+      propertyPath: sandStepVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789561411124290898, guid: 638b8ec0652e22a4aa1d579072981718,
+        type: 3}
+      propertyPath: waterStepVolume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789561411124290898, guid: 638b8ec0652e22a4aa1d579072981718,
+        type: 3}
+      propertyPath: stoneStepVolume
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 638b8ec0652e22a4aa1d579072981718, type: 3}
 --- !u!20 &1428757182 stripped
