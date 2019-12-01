@@ -22,5 +22,5 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - Charge: 0
-    - Opacity: 1
+    - Opacity: 0
     m_Colors: []

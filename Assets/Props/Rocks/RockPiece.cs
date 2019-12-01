@@ -19,11 +19,16 @@ public class RockPiece : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // Debug-draw all contact points and normals
-        var audioSource = GetComponent<AudioSource>();
-        audioSource.Play();
-        audioSource.pitch = Random.Range(0.8f, 1.2f);
-        Debug.Log("rock sound should have played");
+        var isPlayer = collision.gameObject.GetComponent<Character>() == null ? false : true;
+        var isRock = collision.gameObject.GetComponent<RockPiece>() == null ? false : true;
+        if (!isPlayer && !isRock)
+        {
+            // Debug-draw all contact points and normals
+            var audioSource = GetComponent<AudioSource>();
+            audioSource.Play();
+            audioSource.pitch = Random.Range(0.8f, 1.2f);
+            Debug.Log("rock sound should have played");
+        }
     }
 
 }
