@@ -47,6 +47,7 @@ public class Character : MonoBehaviour {
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update() {
@@ -356,5 +357,9 @@ public class Character : MonoBehaviour {
         transform.position = hit
             ? hitInfo.point
             : this.spawnPosition;
+    }
+
+    public void OnEscape() {
+        Application.Quit();
     }
 }
