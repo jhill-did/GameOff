@@ -15,6 +15,7 @@ public class CharacterAnimation : MonoBehaviour {
         var verticalMovement = velocity.y;
         animator.SetFloat("MovementSpeed", horizontalMovement);
         animator.SetFloat("VerticalSpeed", verticalMovement);
+        animator.SetFloat("GlidePitch", character.glidePitch);
         animator.SetBool("Grounded", character.grounded);
         animator.SetInteger("MovementMode", (int)character.movementMode);
         animator.SetBool("Charging", character.chargingLaunch);

@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class CharacterRagdoll : MonoBehaviour {
     public GameObject characterRoot;
+    public Animator animator;
 
     void Start() {
         SetActive(false);
     }
 
-    void SetActive(bool active) {
+    public void SetActive(bool active) {
+        Debug.Log("RAGDOLL");
+
         var rigidbodies = characterRoot.GetComponentsInChildren<Rigidbody>();
         foreach (var rigidbody in rigidbodies) {
             rigidbody.isKinematic = !active;
@@ -19,11 +22,7 @@ public class CharacterRagdoll : MonoBehaviour {
         foreach (var collider in colliders) {
             collider.enabled = active;
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        animator.enabled = !active;
     }
 }

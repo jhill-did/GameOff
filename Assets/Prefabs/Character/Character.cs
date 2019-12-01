@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public enum MovementMode { Ground = 0, Air = 1, Glide = 2};
 
 public class Character : MonoBehaviour {
+    public CharacterRagdoll ragdoll;
     public Rigidbody rigidBody;
     public new GameObject camera;
     public GameObject cameraArm;
@@ -81,7 +82,6 @@ public class Character : MonoBehaviour {
         if (chargingLaunch) {
             var hits = Physics.SphereCastAll(transform.position, 20, transform.forward, 10.0f);
             foreach(RaycastHit hit in hits) {
-                Debug.Log(hit.transform.name);
                 var hitRigidBody = hit.transform.gameObject.GetComponent<Rigidbody>();
                 var isPlayer = hit.transform.gameObject.GetComponent<Character>() == null ? false : true;
                 if(hitRigidBody != null && !isPlayer) {
@@ -92,7 +92,8 @@ public class Character : MonoBehaviour {
     }
 
     void TurnTowards(Vector3 direction) {
-        var targetRotation = Quaternion.LookRotation(direction);
+        var targetRotation = Quaternion
+            .LookRotation(direction.getHorizontalPart());
 
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
@@ -104,8 +105,13 @@ public class Character : MonoBehaviour {
     Vector3 GroundMove(Vector3 currentForce) {
         var movementDirection = GetInputDirection();
 
+        // If we're charging, point in our camera direction.
+        if (chargingLaunch) {
+            TurnTowards(camera.transform.forward);
+        }
+
         // Turn to face our movementDirection.
-        if (this.lastPositiveMovementDirection.magnitude > 0.0f) {
+        if (!chargingLaunch && this.lastPositiveMovementDirection.magnitude > 0.0f) {
             TurnTowards(this.lastPositiveMovementDirection);
         }
 
@@ -154,29 +160,39 @@ public class Character : MonoBehaviour {
     }
 
     Vector3 GlideMove(Vector3 currentForce) {
-        // Rotate towards our movement direction.
-        var horizontalVelocity = this.rigidBody
-            .velocity
-            .getHorizontalPart();
+        var cameraYaw = this.cameraArm.transform.localEulerAngles.x;
+        var adjustedYaw = cameraYaw > 180.0f ? cameraYaw - 360.0f : cameraYaw;
+        glidePitch = Math.Smoothstep(90.0f, 0.0f, adjustedYaw);
 
+        // Calculate vertical air drag.
+        var verticalVelocity = rigidBody.velocity.getVerticalPart();
+        var verticalVelocitySquared = Mathf.Pow(verticalVelocity.magnitude, 2.0f);
+        var verticalSurfaceArea = glidePitch * 0.5f;
+        var verticalDrag = 0.6f * (1.225f * verticalVelocitySquared) / 2.0f * verticalSurfaceArea;
+
+        // Calculate horizontal air drag.
+        var horizontalVelocity = this.rigidBody.velocity.getHorizontalPart();
+        var horizontalVelocitySquared = Mathf.Pow(horizontalVelocity.magnitude, 2.0f);
+        var horizontalSurfaceArea = 0.5f - verticalSurfaceArea;
+        var horizontalDrag = 0.05f * (1.225f * horizontalVelocitySquared) / 2.0f * horizontalSurfaceArea;
+
+        // Calculate steering force.
+        var lookDirection = this.camera.transform.forward.normalized.getHorizontalPart();
+        var steerForce = lookDirection * 40.0f;
+        var steerDot = Vector3.Dot(horizontalVelocity.normalized, lookDirection);
+        var adjustedSteerForce = steerForce * (1.5f - steerDot);
+
+        Debug.Log("steerDot: " + steerDot.ToString());
+
+        // Rotate towards our movement direction.
         if (horizontalVelocity.magnitude > 0.0f) {
             TurnTowards(horizontalVelocity);
         }
 
-        var inputDirection = GetInputDirection();
-        this.glideAngle = Mathf.Clamp(glideAngle + inputDirection.x, -1.0f, 1.0f);
-
-        var glideAngleReset = (glideAngle > 0.0f ? -1.0f : 1.0f)
-            * Time.fixedDeltaTime
-            * 4.0f;
-
-        this.glideAngle = glideAngle + glideAngleReset;
-
-        Debug.Log(glideAngle);
-
-
         var totalForce = currentForce
-            + Vector3.up * 9.86f;
+            + verticalVelocity.normalized * -verticalDrag
+            + horizontalVelocity.normalized * -horizontalDrag
+            + adjustedSteerForce;
 
         return totalForce;
     }
@@ -210,6 +226,13 @@ public class Character : MonoBehaviour {
             1.25f
         );
 
+        // If we were just gliding and hit the ground, start ragdolling.
+        if (movementMode == MovementMode.Glide && grounded) {
+            this.movementMode = MovementMode.Ground;
+            Debug.Log("GLIDE GROUND HIT");
+            // this.ragdoll.SetActive(true);
+        }
+
         // Special case transition to gliding when we're
         // falling from high enough.
         bool airToGlide = this.movementMode == MovementMode.Air
@@ -223,7 +246,7 @@ public class Character : MonoBehaviour {
             this.glidePitch = 1.0f;
         }
 
-        this.movementMode = airToGlide
+        this.movementMode = airToGlide || movementMode == MovementMode.Glide
             ? MovementMode.Glide
             : this.grounded
                 ? MovementMode.Ground
@@ -268,10 +291,14 @@ public class Character : MonoBehaviour {
     }
 
     public void OnChargeLaunch() {
-        chargingLaunch = true;
+        chargingLaunch = grounded;
     }
 
     public void OnReleaseLaunch() {
+        if (!chargingLaunch) {
+            return;
+        }
+
         chargingLaunch = false;
         Launch();
     }
@@ -297,7 +324,6 @@ public class Character : MonoBehaviour {
                 var variationLaunch = Random.Range(0.8f, 1.2f) * 100;
                 hitRigidBody.AddForce(launchForce * variationLaunch, ForceMode.Impulse);
             }
-
         }
     }
 
@@ -310,6 +336,7 @@ public class Character : MonoBehaviour {
     }
 
     public void resetPlayer() {
+        this.ragdoll.SetActive(false);
         this.rigidBody.velocity = Vector3.zero;
         transform.position = this.spawnPosition;
     }

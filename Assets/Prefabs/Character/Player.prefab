@@ -540,6 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6bef3fa12b315840a329f8b2f0833e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ragdoll: {fileID: 6999896411209767011}
   rigidBody: {fileID: 3827328977023666521}
   camera: {fileID: 5061072342489912546}
   cameraArm: {fileID: 5061072342725803627}
@@ -1040,6 +1041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterRoot: {fileID: 3827328977316953695}
+  animator: {fileID: 9036222155979503521}
 --- !u!95 &9036222155979503521
 Animator:
   serializedVersion: 3
