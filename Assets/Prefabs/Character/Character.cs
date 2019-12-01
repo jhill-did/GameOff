@@ -357,4 +357,8 @@ public class Character : MonoBehaviour {
             ? hitInfo.point
             : this.spawnPosition;
     }
+
+    public void OnEscape() {
+        Application.Quit();
+    }
 }
