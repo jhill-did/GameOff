@@ -1831,6 +1831,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1428757181}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &646956092 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3827328977023666522, guid: 638b8ec0652e22a4aa1d579072981718,
+    type: 3}
+  m_PrefabInstance: {fileID: 1428757181}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646956090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6bef3fa12b315840a329f8b2f0833e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &689063342
 GameObject:
   m_ObjectHideFlags: 0
@@ -4789,6 +4801,7 @@ GameObject:
   - component: {fileID: 1720372264}
   - component: {fileID: 1720372266}
   - component: {fileID: 1720372265}
+  - component: {fileID: 1720372267}
   m_Layer: 5
   m_Name: Crosshair
   m_TagString: Untagged
@@ -4851,6 +4864,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1720372263}
   m_CullTransparentMesh: 0
+--- !u!114 &1720372267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720372263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e21a5260f1b27eb46b0f5ca523df1059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 646956092}
+  crosshair: {fileID: 1720372265}
+  fadeRate: 8
 --- !u!1 &1785570326
 GameObject:
   m_ObjectHideFlags: 0
