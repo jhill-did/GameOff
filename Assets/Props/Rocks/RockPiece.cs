@@ -25,6 +25,7 @@ public class RockPiece : MonoBehaviour
         {
             // Debug-draw all contact points and normals
             var audioSource = GetComponent<AudioSource>();
+            audioSource.maxDistance = 50;
             audioSource.Play();
             audioSource.pitch = Random.Range(0.8f, 1.2f);
             Debug.Log("rock sound should have played");

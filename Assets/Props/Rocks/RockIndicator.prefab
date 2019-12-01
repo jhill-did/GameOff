@@ -31,44 +31,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4361432377645051911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6299239621784657405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dc8fcc85225a8c4287fb0dc837d299e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rockPhysicsMaterial: {fileID: 13400000, guid: af48d647774aa294f8254e0a322c5b1b,
-    type: 2}
-  rockMaterial: {fileID: 2100000, guid: a30dd3cdf7ab8b74e82820b1313e4034, type: 2}
-  bottle: {fileID: 0}
-  rockPartMass: 100
-  rockImpactSound: {fileID: 8300000, guid: ba3a72058115b6643904b42abbcda060, type: 3}
-  initialRockBreakSound: {fileID: 8300000, guid: de04a80606e65a24b8dc6ae71af560e6,
-    type: 3}
-  audioMixerRockGroup: {fileID: -4452967533765215238, guid: 3d03fa9e96f4768498c718107be02bd8,
-    type: 2}
---- !u!114 &5147638395337659680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6299239621784657405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aca0359d29cad204384c86962877b84c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rate: 3
-  magnitude: 1
-  isHorizontal: 0
-  isCircular: 0
 --- !u!82 &6342581759083363960
 AudioSource:
   m_ObjectHideFlags: 0
@@ -165,6 +127,44 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4361432377645051911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6299239621784657405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dc8fcc85225a8c4287fb0dc837d299e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rockPhysicsMaterial: {fileID: 13400000, guid: af48d647774aa294f8254e0a322c5b1b,
+    type: 2}
+  rockMaterial: {fileID: 2100000, guid: a30dd3cdf7ab8b74e82820b1313e4034, type: 2}
+  bottle: {fileID: 0}
+  rockPartMass: 100
+  rockImpactSound: {fileID: 8300000, guid: 188d46d9b15faea4fb0eafb20fbd125d, type: 3}
+  initialRockBreakSound: {fileID: 8300000, guid: de04a80606e65a24b8dc6ae71af560e6,
+    type: 3}
+  audioMixerRockGroup: {fileID: -4452967533765215238, guid: 3d03fa9e96f4768498c718107be02bd8,
+    type: 2}
+--- !u!114 &5147638395337659680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6299239621784657405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aca0359d29cad204384c86962877b84c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rate: 3
+  magnitude: 1
+  isHorizontal: 0
+  isCircular: 0
 --- !u!1001 &2615052177911383284
 PrefabInstance:
   m_ObjectHideFlags: 0
