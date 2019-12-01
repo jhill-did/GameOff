@@ -38,7 +38,6 @@ public class Character : MonoBehaviour {
     public float groundFriction;
     public float maxGroundVelocity;
 
-    public float glideAngle = 0.0f;
     public float glidePitch = 1.0f; // 0 = Down, 1 = Forward.
 
     public float cameraMovementSensitivity = 0.2f;
@@ -51,6 +50,21 @@ public class Character : MonoBehaviour {
     }
 
     private void Update() {
+        // TODO: Enable ragdolls 😩
+        /*
+        if (Input.GetKeyDown(KeyCode.P)) {
+            this.ragdoll.SetActive(!this.ragdoll.active);
+        }
+
+        var constraints = RigidbodyConstraints.FreezeRotation;
+        constraints = this.ragdoll.active
+            ? constraints | RigidbodyConstraints.FreezePosition
+            : constraints;
+
+        this.rigidBody.constraints = constraints;
+        */
+
+
         // Camera Yaw.
         this.cameraYaw = this.cameraYaw
             + this.cameraMovementDirection.x
@@ -227,7 +241,6 @@ public class Character : MonoBehaviour {
         // If we were just gliding and hit the ground, start ragdolling.
         if (movementMode == MovementMode.Glide && grounded) {
             this.movementMode = MovementMode.Ground;
-            Debug.Log("GLIDE GROUND HIT");
             // this.ragdoll.SetActive(true);
         }
 
@@ -240,7 +253,6 @@ public class Character : MonoBehaviour {
         // If we're just now entering the glide state, reset
         // glide variables.
         if (airToGlide) {
-            this.glideAngle = 0.0f;
             this.glidePitch = 1.0f;
         }
 
