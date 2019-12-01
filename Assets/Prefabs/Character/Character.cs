@@ -288,13 +288,14 @@ public class Character : MonoBehaviour {
         var hits = Physics.SphereCastAll(transform.position, 20, transform.forward, 10.0f);
         foreach (RaycastHit hit in hits)
         {
-            Debug.Log(hit.transform.name);
+
             var hitRigidBody = hit.transform.gameObject.GetComponent<Rigidbody>();
             var isPlayer = hit.transform.gameObject.GetComponent<Character>() == null ? false : true;
             if (hitRigidBody != null && !isPlayer)
             {
                 //100 idk dawg it looks like it's a good number.
-                hitRigidBody.AddForce(launchForce * 100, ForceMode.Impulse);
+                var variationLaunch = Random.Range(0.8f, 1.2f) * 100;
+                hitRigidBody.AddForce(launchForce * variationLaunch, ForceMode.Impulse);
             }
 
         }

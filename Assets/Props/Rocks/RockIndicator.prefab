@@ -48,6 +48,7 @@ MonoBehaviour:
   rockMaterial: {fileID: 2100000, guid: a30dd3cdf7ab8b74e82820b1313e4034, type: 2}
   bottle: {fileID: 0}
   rockPartMass: 100
+  rockImpactSound: {fileID: 8300000, guid: ba3a72058115b6643904b42abbcda060, type: 3}
 --- !u!114 &5147638395337659680
 MonoBehaviour:
   m_ObjectHideFlags: 0
