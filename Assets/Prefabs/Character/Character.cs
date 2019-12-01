@@ -15,7 +15,7 @@ public class Character : MonoBehaviour {
 
     MovementMode movementMode;
 
-    bool chargingLaunch = false;
+    public bool chargingLaunch = false;
     public float launchHoldTimer = 0.0f;
     public float launchHoldRate = 1.0f;
     public float maxLaunchForce;
