@@ -11,6 +11,8 @@ public class RockIndicator : MonoBehaviour
     public float rockPartMass;
     bool isDestroyed = false;
 
+    public AudioClip rockImpactSound;
+
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,12 @@ public class RockIndicator : MonoBehaviour
             child.gameObject.GetComponent<Rigidbody>().mass = rockPartMass;
             child.gameObject.GetComponent<MeshRenderer>().material = rockMaterial;
             child.gameObject.GetComponent<MeshCollider>().material = rockPhysicsMaterial;
+
+            //add audio source for each component; 
+            child.gameObject.AddComponent<AudioSource>();
+            var rockAudioSource = child.gameObject.GetComponent<AudioSource>();
+            rockAudioSource.clip = rockImpactSound;
+            rockAudioSource.outputAudioMixerGroup = "rock";
         }
         yield return new WaitForSeconds(0.01f);
         foreach (Transform child in transform)
