@@ -60,6 +60,12 @@ ModelImporter:
   - first:
       74: 8477446588073555473
     second: Armature|GlideBetween
+  - first:
+      74: -7482701116150080919
+    second: Armature|_TPose (1)
+  - first:
+      74: -2345479304902838150
+    second: Armature|Charging
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -75,54 +81,7 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Armature|Flip' has import animation warnings
-      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'Pelvis' has translation animation that
-      will be discarded.\n\t'Hip.L' has translation animation that will be discarded.\n\t'Hip.L'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Hip.R'
-      has translation animation that will be discarded.\n\t'Hip.R' is inbetween humanoid
-      transforms and has rotation animation that will be discarded.\n\nClip 'Armature|GetUpFront'
-      has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'Root'
-      has translation animation that will be discarded.\n\t'Root' is inbetween humanoid
-      transforms and has rotation animation that will be discarded.\n\t'Pelvis' has
-      translation animation that will be discarded.\n\t'Hip.L' has translation animation
-      that will be discarded.\n\t'Hip.R' has translation animation that will be discarded.\n\nClip
-      'Armature|HitStun01' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'Pelvis'
-      has translation animation that will be discarded.\n\t'Hip.L' has translation
-      animation that will be discarded.\n\t'Hip.L' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\t'Hip.R' has translation
-      animation that will be discarded.\n\t'Hip.R' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\nClip 'Armature|HitStun02'
-      has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'Pelvis'
-      has translation animation that will be discarded.\n\t'Hip.L' has translation
-      animation that will be discarded.\n\t'Hip.L' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\t'Hip.R' has translation
-      animation that will be discarded.\n\t'Hip.R' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\nClip 'Armature|Run' has
-      import animation warnings that might lower retargeting quality:\nNote: Activate
-      translation DOF on avatar to improve retargeting quality.\n\t'Pelvis' has translation
-      animation that will be discarded.\n\t'Hip.L' has translation animation that
-      will be discarded.\n\t'Hip.L' is inbetween humanoid transforms and has rotation
-      animation that will be discarded.\n\t'Hip.R' has translation animation that
-      will be discarded.\n\t'Hip.R' is inbetween humanoid transforms and has rotation
-      animation that will be discarded.\n\nClip 'Armature|SpinHitStun' has import
-      animation warnings that might lower retargeting quality:\nNote: Activate translation
-      DOF on avatar to improve retargeting quality.\n\t'Root' has translation animation
-      that will be discarded.\n\t'Pelvis' has translation animation that will be
-      discarded.\n\t'Hip.L' has translation animation that will be discarded.\n\t'Hip.L'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Hip.R'
-      has translation animation that will be discarded.\n\t'Hip.R' is inbetween humanoid
-      transforms and has rotation animation that will be discarded.\n\nClip 'Armature|ThreeHitCombo0'
-      has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'Pelvis'
-      has translation animation that will be discarded.\n\t'Hip.L' has translation
-      animation that will be discarded.\n\t'Hip.L' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\t'Hip.R' has translation
-      animation that will be discarded.\n\t'Hip.R' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -616,6 +575,35 @@ ModelImporter:
     - serializedVersion: 16
       name: Armature|GlideBetween
       takeName: Armature|GlideBetween
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Charging
+      takeName: Armature|Charging
       internalID: 0
       firstFrame: 0
       lastFrame: 1

@@ -16,6 +16,8 @@ public class CharacterAnimation : MonoBehaviour {
         animator.SetFloat("MovementSpeed", horizontalMovement);
         animator.SetFloat("VerticalSpeed", verticalMovement);
         animator.SetBool("Grounded", character.grounded);
+        animator.SetInteger("MovementMode", (int)character.movementMode);
+        animator.SetBool("Charging", character.chargingLaunch);
 
         // Update camera FOV for launch charge.
         var camera = character.camera.GetComponent<Camera>();
