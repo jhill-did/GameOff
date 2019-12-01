@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class RockIndicator : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class RockIndicator : MonoBehaviour
     bool isDestroyed = false;
 
     public AudioClip rockImpactSound;
+    public AudioMixerGroup audioMixerRockGroup; 
 
 
     // Start is called before the first frame update
@@ -34,11 +36,13 @@ public class RockIndicator : MonoBehaviour
             child.gameObject.GetComponent<MeshRenderer>().material = rockMaterial;
             child.gameObject.GetComponent<MeshCollider>().material = rockPhysicsMaterial;
 
+            //add rockpiece script to the each gameobject
+            child.gameObject.AddComponent<RockPiece>();
             //add audio source for each component; 
             child.gameObject.AddComponent<AudioSource>();
             var rockAudioSource = child.gameObject.GetComponent<AudioSource>();
             rockAudioSource.clip = rockImpactSound;
-            //rockAudioSource.outputAudioMixerGroup = "rock";
+            rockAudioSource.outputAudioMixerGroup = audioMixerRockGroup;
         }
         yield return new WaitForSeconds(0.01f);
         foreach (Transform child in transform)
