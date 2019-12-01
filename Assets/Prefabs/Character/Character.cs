@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum MovementMode { Ground, Air, Glide };
+public enum MovementMode { Ground = 0, Air = 1, Glide = 2};
 
 public class Character : MonoBehaviour {
     public Rigidbody rigidBody;
@@ -13,7 +13,7 @@ public class Character : MonoBehaviour {
     private float cameraYaw = 0.0f;
     public float rotationSpeed = 5.0f;
 
-    MovementMode movementMode;
+    public MovementMode movementMode;
 
     public AudioClip launchSound;
     public AudioSource chargeAudioSource;
