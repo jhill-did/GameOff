@@ -336,6 +336,13 @@ public class Character : MonoBehaviour {
     public void resetPlayer() {
         this.ragdoll.SetActive(false);
         this.rigidBody.velocity = Vector3.zero;
-        transform.position = this.spawnPosition;
+        this.movementMode = MovementMode.Ground;
+
+        Ray groundCheck = new Ray(this.spawnPosition, Vector3.down);
+        var hit = Physics.Raycast(groundCheck, out var hitInfo, 10.0f);
+
+        transform.position = hit
+            ? hitInfo.point
+            : this.spawnPosition;
     }
 }
