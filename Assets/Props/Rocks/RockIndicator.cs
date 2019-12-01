@@ -38,7 +38,7 @@ public class RockIndicator : MonoBehaviour
             child.gameObject.AddComponent<AudioSource>();
             var rockAudioSource = child.gameObject.GetComponent<AudioSource>();
             rockAudioSource.clip = rockImpactSound;
-            rockAudioSource.outputAudioMixerGroup = "rock";
+            //rockAudioSource.outputAudioMixerGroup = "rock";
         }
         yield return new WaitForSeconds(0.01f);
         foreach (Transform child in transform)
