@@ -54,7 +54,6 @@ public class CharacterFootsteps : MonoBehaviour {
     void Step(Vector3 footPosition) {
         var speed = rigidBody.velocity.magnitude;
 
-        Debug.Log(footPosition.y);
         var type = footPosition.y < 0.1f
             ? StepType.Water
             : StepType.Sand;
