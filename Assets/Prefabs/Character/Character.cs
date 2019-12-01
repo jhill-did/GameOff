@@ -180,9 +180,7 @@ public class Character : MonoBehaviour {
         var lookDirection = this.camera.transform.forward.normalized.getHorizontalPart();
         var steerForce = lookDirection * 40.0f;
         var steerDot = Vector3.Dot(horizontalVelocity.normalized, lookDirection);
-        var adjustedSteerForce = steerForce * (1.5f - steerDot);
-
-        Debug.Log("steerDot: " + steerDot.ToString());
+        var adjustedSteerForce = steerForce * (1.0f - steerDot);
 
         // Rotate towards our movement direction.
         if (horizontalVelocity.magnitude > 0.0f) {
@@ -338,6 +336,13 @@ public class Character : MonoBehaviour {
     public void resetPlayer() {
         this.ragdoll.SetActive(false);
         this.rigidBody.velocity = Vector3.zero;
-        transform.position = this.spawnPosition;
+        this.movementMode = MovementMode.Ground;
+
+        Ray groundCheck = new Ray(this.spawnPosition, Vector3.down);
+        var hit = Physics.Raycast(groundCheck, out var hitInfo, 10.0f);
+
+        transform.position = hit
+            ? hitInfo.point
+            : this.spawnPosition;
     }
 }

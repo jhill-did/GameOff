@@ -10,21 +10,18 @@ public class GameOver : MonoBehaviour
     float currentCount = 0;
 
     bool didWin = false;
-    // Start is called before the first frame update
+
     void Start()
     {
         countLabel.SetText("");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(inventory.bottlesCollected == 7 && !didWin)
-        {
+        if (inventory.bottlesCollected == BottleInventory.maxBottles && !didWin) {
             countLabel.SetText("Thanks for playing!");
             didWin = true;
         }
         
     }
-
 }

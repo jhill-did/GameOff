@@ -11,8 +11,6 @@ public class CharacterRagdoll : MonoBehaviour {
     }
 
     public void SetActive(bool active) {
-        Debug.Log("RAGDOLL");
-
         var rigidbodies = characterRoot.GetComponentsInChildren<Rigidbody>();
         foreach (var rigidbody in rigidbodies) {
             rigidbody.isKinematic = !active;
