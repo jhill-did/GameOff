@@ -180,9 +180,7 @@ public class Character : MonoBehaviour {
         var lookDirection = this.camera.transform.forward.normalized.getHorizontalPart();
         var steerForce = lookDirection * 40.0f;
         var steerDot = Vector3.Dot(horizontalVelocity.normalized, lookDirection);
-        var adjustedSteerForce = steerForce * (1.5f - steerDot);
-
-        Debug.Log("steerDot: " + steerDot.ToString());
+        var adjustedSteerForce = steerForce * (1.0f - steerDot);
 
         // Rotate towards our movement direction.
         if (horizontalVelocity.magnitude > 0.0f) {
