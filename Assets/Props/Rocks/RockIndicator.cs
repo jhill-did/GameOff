@@ -13,6 +13,7 @@ public class RockIndicator : MonoBehaviour
     bool isDestroyed = false;
 
     public AudioClip rockImpactSound;
+    public AudioClip initialRockBreakSound;
     public AudioMixerGroup audioMixerRockGroup; 
 
 
@@ -28,6 +29,9 @@ public class RockIndicator : MonoBehaviour
 
     public IEnumerator breakApart()
     {
+        var audioSource = GetComponent<AudioSource>();
+        audioSource.clip = initialRockBreakSound;
+        audioSource.Play();
         foreach (Transform child in transform)
         {
             child.gameObject.GetComponent<MeshCollider>().convex = true;
